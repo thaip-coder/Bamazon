@@ -16,18 +16,18 @@ con.connect(function(err) {
     if (err) throw err;
     console.log('Connected as ID: ' + con.threadId);
     afterConnection();
-    purchase();
 });
 
-//Function to start purchase after connection
+//Shows products table on start-up
 function afterConnection() {
     con.query("SELECT * FROM products", function(err, res) {
         if (err) throw err;
         console.table(res);
-        connection.end();
+        purchase();
     });
 };
 
+//Initiates product selection
 function purchase() {
     inquirer.prompt({
         name: "buy",
@@ -35,4 +35,6 @@ function purchase() {
         message: "Input ID of item you would like to purchase."
     });
 }
+
+
 
