@@ -29,12 +29,44 @@ function afterConnection() {
 
 //Initiates product selection
 function purchase() {
-    inquirer.prompt({
-        name: "buy",
-        type: "input",
-        message: "Input ID of item you would like to purchase."
-    });
-}
+    con.query("SELECT * FROM products", function(err, res) {
+        if (err) throw err;
+        inquirer.prompt([
+            {
+            name: "choice",
+            type: "input",
+            message: "Input ID of item you would like to purchase."
+            },
+            {
+            name: "quantity",
+            type: "input",
+            message: "How many would you like to purchase?"
+            }
+        ])
+        .then(function(ans) {
+            var chosenItem;
+            for (var i = 0; i < res.length; i++) {
+                if (ans.choice == res[i].item_id) {
+                    chosenItem = res[i];
+                    console.log(chosenItem.product_name);
+                }; 
+            };
+
+            if (chosenItem.stock_quantity >= ans.quantity) {
+                console.log("Your order is being processed!")
+                //checkOut();
+            } else if (chosenItem.stock_quantity <= ans.quantity) {
+                console.log("Sorry, Insufficient Quantity.")
+                con.end();
+            };
+        })
+    })
+};
+
+//Checks if store has enough quantity (if not, log phrase "Insufficient quantity" and end transaction)
+//If yes, fulfills customer order
+//Updates SQL database to reflect remaining quantity
+//After update, shoes customer total cost
 
 
 
