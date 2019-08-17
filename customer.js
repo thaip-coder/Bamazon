@@ -22,6 +22,7 @@ con.connect(function(err) {
 function afterConnection() {
     con.query("SELECT * FROM products", function(err, res) {
         if (err) throw err;
+        //Displays products
         console.table(res);
         purchase();
     });
@@ -35,12 +36,13 @@ function purchase() {
             {
             name: "choice",
             type: "input",
-            message: "Input ID of item you would like to purchase."
+            message: "Input ID of item you would like to purchase.",
             },
             {
             name: "quantity",
             type: "input",
-            message: "How many would you like to purchase?"
+            message: "How many would you like to purchase?",
+            filter: Number
             }
         ])
         .then(function(ans) {
@@ -72,12 +74,40 @@ function purchase() {
                     console.log("Purchase successful!");
                     //Shows customer cost of purchase(s)
                     console.log("Your total comes out to " + (ans.quantity * chosenItem.price) + "$.");
-                    purchase();
+                    //Prompts the user to continue shopping or not
+                    inquirer.prompt([
+                        {
+                            name: "continue",
+                            type: "confirm",
+                            message: "Do you want you to continue shopping?"
+                        }
+                    ])
+                    .then(function(ans) {
+                        if (ans.continue == true) {
+                            purchase();
+                        } else if (ans.continue == false) {
+                            con.end();
+                        }
+                    })
                 })
             //If not in stock, notifies customer and ends transaction
             } else if (chosenItem.stock_quantity <= ans.quantity) {
                 console.log("Sorry, Insufficient Quantity.")
-                con.end();
+                //Prompts the user to continue shopping or not
+                inquirer.prompt([
+                    {
+                        name: "continue",
+                        type: "confirm",
+                        message: "Do you want you to continue shopping?"
+                    }
+                ])
+                .then(function(ans) {
+                    if (ans.continue == true) {
+                        purchase();
+                    } else if (ans.continue == false) {
+                        con.end();
+                    }
+                })
             };
         });
     });
