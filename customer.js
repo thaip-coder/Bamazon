@@ -37,12 +37,25 @@ function purchase() {
             name: "choice",
             type: "input",
             message: "Input ID of item you would like to purchase.",
+            validate: function(value) {
+                var pass = value.match(/\d/g);
+                if (pass) {
+                    return true;
+                }
+                return "Please enter a number ID"            
+            }
             },
             {
             name: "quantity",
             type: "input",
             message: "How many would you like to purchase?",
-            filter: Number
+            validate: function(value) {
+                var pass = value.match(/\d/g);
+                if (pass) {
+                    return true;
+                }
+                return "Please enter a number quantity"            
+            }
             }
         ])
         .then(function(ans) {
