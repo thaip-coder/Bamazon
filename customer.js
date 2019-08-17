@@ -20,7 +20,7 @@ con.connect(function(err) {
 
 //Shows products table on start-up
 function afterConnection() {
-    con.query("SELECT item_id, product_name, price FROM products", function(err, res) {
+    con.query("SELECT item_id, product_name, price, stock_quantity FROM products", function(err, res) {
         if (err) throw err;
 
         //Displays products
@@ -72,7 +72,7 @@ function purchase() {
             for (var i = 0; i < res.length; i++) {
                 if (ans.choice == res[i].item_id) {
                     chosenItem = res[i];
-                    console.log(chosenItem.product_name);
+                    console.log("You have chosen " + ans.quantity + " of " + chosenItem.product_name);
                 }; 
             };
 
