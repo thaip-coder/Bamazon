@@ -31,6 +31,8 @@ Homework 12
         - If no, the program will end.
 
 4. Images of the code working
+    - ![Screenshot](bamazon.png)
+        - The red squares indicate the quantity change being updated to MySql
 
 5. Deployed version of the app:
     - [Github Deployed Version](https://tp222.github.io/Bamazon/)
@@ -38,7 +40,7 @@ Homework 12
 6. My app utilized the following:
     - Inquirer module
     - MySql module
-    - MySql database
+    - MySql Workbench database
 
 7. I developed this app as a homework assignment for my coding bootcamp. 
     
