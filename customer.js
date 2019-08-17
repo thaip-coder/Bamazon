@@ -27,7 +27,7 @@ function afterConnection() {
     });
 };
 
-//Initiates product selection
+//Initiates product and quantity selection
 function purchase() {
     con.query("SELECT * FROM products", function(err, res) {
         if (err) throw err;
@@ -52,21 +52,40 @@ function purchase() {
                 }; 
             };
 
+            //If in stock, fulfills customer's request
             if (chosenItem.stock_quantity >= ans.quantity) {
                 console.log("Your order is being processed!")
-                //checkOut();
+                //Calculates new stock of product selected
+                updatedStock = chosenItem.stock_quantity - ans.quantity;
+                //Updates MySql with new stock quantity
+                con.query("UPDATE products SET ? WHERE ?",
+                [
+                   {
+                    stock_quantity: updatedStock
+                   },
+                   {
+                    item_id: chosenItem.item_id
+                   }
+                ],
+                function(err) {
+                    if (err) throw err;
+                    console.log("Purchase successful!");
+                    //Shows customer cost of purchase(s)
+                    console.log("Your total comes out to " + (ans.quantity * chosenItem.price) + "$.");
+                    purchase();
+                })
+            //If not in stock, notifies customer and ends transaction
             } else if (chosenItem.stock_quantity <= ans.quantity) {
                 console.log("Sorry, Insufficient Quantity.")
                 con.end();
             };
-        })
-    })
+        });
+    });
 };
 
-//Checks if store has enough quantity (if not, log phrase "Insufficient quantity" and end transaction)
-//If yes, fulfills customer order
-//Updates SQL database to reflect remaining quantity
-//After update, shoes customer total cost
+
+
+
 
 
 
