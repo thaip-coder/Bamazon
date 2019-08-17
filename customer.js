@@ -22,14 +22,16 @@ con.connect(function(err) {
 function afterConnection() {
     con.query("SELECT * FROM products", function(err, res) {
         if (err) throw err;
-        
+
         //Displays products
         console.table(res);
+
+        //Initiates product and quantity selection
         purchase();
     });
 };
 
-//Initiates product and quantity selection
+//Product and quantity selection function
 function purchase() {
     con.query("SELECT * FROM products", function(err, res) {
         if (err) throw err;
@@ -39,6 +41,8 @@ function purchase() {
             type: "input",
             message: "Input ID of item you would like to purchase.",
             validate: function(value) {
+
+                //Validates if input is a number
                 var pass = value.match(/\d/g);
                 if (pass) {
                     return true;
@@ -51,6 +55,8 @@ function purchase() {
             type: "input",
             message: "How many would you like to purchase?",
             validate: function(value) {
+
+                //Validates if input is a number
                 var pass = value.match(/\d/g);
                 if (pass) {
                     return true;
