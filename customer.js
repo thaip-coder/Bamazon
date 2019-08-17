@@ -20,7 +20,7 @@ con.connect(function(err) {
 
 //Shows products table on start-up
 function afterConnection() {
-    con.query("SELECT * FROM products", function(err, res) {
+    con.query("SELECT item_id, product_name, price FROM products", function(err, res) {
         if (err) throw err;
 
         //Displays products
@@ -66,6 +66,8 @@ function purchase() {
             }
         ])
         .then(function(ans) {
+
+            //Traverses the array to locate the item the user selected
             var chosenItem;
             for (var i = 0; i < res.length; i++) {
                 if (ans.choice == res[i].item_id) {
@@ -110,10 +112,12 @@ function purchase() {
                         if (ans.continue == true) {
                             purchase();
                         } else if (ans.continue == false) {
+                            console.log("Come back soon!");
                             con.end();
                         }
                     })
                 })
+
             //If not in stock, notifies customer and ends transaction
             } else if (chosenItem.stock_quantity <= ans.quantity) {
                 console.log("Sorry, Insufficient Quantity.")
@@ -130,6 +134,7 @@ function purchase() {
                     if (ans.continue == true) {
                         purchase();
                     } else if (ans.continue == false) {
+                        console.log("Come back soon!");
                         con.end();
                     }
                 })
