@@ -41,6 +41,8 @@ Homework 12
     - Inquirer module
     - MySql module
     - MySql Workbench database
+    - Javascript
+    - Node.js
 
 7. I developed this app as a homework assignment for my coding bootcamp. 
     

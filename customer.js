@@ -31,7 +31,7 @@ function afterConnection() {
     });
 };
 
-//Product and quantity selection function
+//Product and Quantity selection function
 function purchase() {
     con.query("SELECT * FROM products", function(err, res) {
         if (err) throw err;
