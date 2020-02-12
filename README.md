@@ -35,7 +35,7 @@ Homework 12
         - The red squares indicate the quantity change being updated to MySql
 
 5. Deployed version of the app:
-    - [Github Deployed Version](https://tp222.github.io/Bamazon/)
+    - [Github Deployed Version](https://thaip-coder.github.io/Bamazon/)
 
 6. My app utilized the following:
     - Inquirer module

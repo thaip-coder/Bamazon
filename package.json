@@ -8,15 +8,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tp222/Bamazon.git"
+    "url": "git+https://github.com/thaip-coder/Bamazon.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/tp222/Bamazon/issues"
+    "url": "https://github.com/thaip-coder/Bamazon/issues"
   },
-  "homepage": "https://github.com/tp222/Bamazon#readme",
+  "homepage": "https://github.com/thaip-coder/Bamazon#readme",
   "dependencies": {
     "inquirer": "^6.5.1",
     "mysql": "^2.17.1"
